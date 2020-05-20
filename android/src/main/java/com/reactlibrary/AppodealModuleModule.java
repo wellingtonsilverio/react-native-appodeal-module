@@ -1,10 +1,12 @@
 package com.reactlibrary;
 
+import com.appodeal.ads.RewardedVideoCallbacks;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 
+import android.app.Activity;
 import android.widget.Toast;
 
 import com.appodeal.ads.Appodeal;
@@ -12,6 +14,8 @@ import com.appodeal.ads.Appodeal;
 //import com.appodeal.ads.NativeAd;
 //import com.appodeal.ads.NativeAdView;
 import com.appodeal.ads.UserSettings;
+
+import java.util.Locale;
 //import com.appodeal.ads.utils.Log;
 
 public class AppodealModuleModule extends ReactContextBaseJavaModule {
@@ -40,7 +44,7 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void initializeRewarded(String APP_KEY) {
         Appodeal.initialize(getCurrentActivity(), APP_KEY, Appodeal.REWARDED_VIDEO, consent);
-//        Appodeal.setRewardedVideoCallbacks(new AppodealRewardedVideoCallbacks(this));
+        Appodeal.setRewardedVideoCallbacks(new AppodealRewardedVideoCallbacks(getCurrentActivity()));
     }
 
     @ReactMethod
@@ -57,5 +61,58 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
         boolean isShown = Appodeal.show(getCurrentActivity(), Appodeal.REWARDED_VIDEO);
 
         callback.invoke(isShown);
+    }
+
+    private class AppodealRewardedVideoCallbacks implements RewardedVideoCallbacks {
+        private final Activity activity;
+
+        AppodealRewardedVideoCallbacks(Activity activity) {
+            this.activity = activity;
+        }
+
+        @Override
+        public void onRewardedVideoLoaded(boolean isPrecache) {
+            showToast(activity, "onRewardedVideoLoaded, isPrecache: " + isPrecache);
+        }
+
+        @Override
+        public void onRewardedVideoFailedToLoad() {
+            showToast(activity, "onRewardedVideoFailedToLoad");
+        }
+
+        @Override
+        public void onRewardedVideoShown() {
+            Utils.showToast(activity, "onRewardedVideoShown");
+        }
+
+        @Override
+        public void onRewardedVideoShowFailed() {
+            showToast(activity, "onRewardedVideoShowFailed");
+        }
+
+        @Override
+        public void onRewardedVideoClicked() {
+            showToast(activity, "onRewardedVideoClicked");
+        }
+
+        @Override
+        public void onRewardedVideoFinished(double amount, String name) {
+            showToast(activity,
+                    String.format(Locale.ENGLISH, "onRewardedVideoFinished. Reward: %.2f %s", amount, name));
+        }
+
+        @Override
+        public void onRewardedVideoClosed(boolean finished) {
+            showToast(activity, String.format("onRewardedVideoClosed,  finished: %s", finished));
+        }
+
+        @Override
+        public void onRewardedVideoExpired() {
+            showToast(activity, "onRewardedVideoExpired");
+        }
+
+        static void showToast(Activity activity, String text) {
+            Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
+        }
     }
 }
