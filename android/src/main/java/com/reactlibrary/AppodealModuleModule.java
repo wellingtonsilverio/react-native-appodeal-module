@@ -66,10 +66,6 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
         callback.invoke(isShown);
     }
 
-//    public void rewardedVideoChooseNetworks() {
-//        disableNetworks(Appodeal.REWARDED_VIDEO);
-//    }
-
     @ReactMethod
     public void rewardedVideoCache() {
         Appodeal.cache(getCurrentActivity(), Appodeal.REWARDED_VIDEO);
