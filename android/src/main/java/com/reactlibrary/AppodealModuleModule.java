@@ -20,8 +20,12 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void sampleMethod(String stringArgument, int numberArgument, Callback callback) {
-        // TODO: Implement some actually useful functionality
-        callback.invoke("Received numberArgument: " + numberArgument + " stringArgument: " + stringArgument);
+    public void initialize(String key, Callback callback) {
+        callback.invoke("Received key: " + key);
+    }
+
+    @ReactMethod
+    public void showRewarded(Callback callback) {
+        callback.invoke("show Rewarded");
     }
 }
