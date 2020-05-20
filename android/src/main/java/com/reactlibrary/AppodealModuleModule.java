@@ -82,7 +82,7 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
 
         @Override
         public void onRewardedVideoShown() {
-            Utils.showToast(activity, "onRewardedVideoShown");
+            showToast(activity, "onRewardedVideoShown");
         }
 
         @Override
