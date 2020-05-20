@@ -1,6 +1,7 @@
 package com.reactlibrary;
 
 import com.appodeal.ads.RewardedVideoCallbacks;
+import com.appodeal.ads.utils.Log;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -35,6 +36,8 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void initialize(String APP_KEY) {
+        Appodeal.setTesting(true);
+        Appodeal.setLogLevel(Log.LogLevel.verbose);
         // Add user settings
         Appodeal.setUserAge(25);
         Appodeal.setUserGender(UserSettings.Gender.MALE);
@@ -61,6 +64,15 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
         boolean isShown = Appodeal.show(getCurrentActivity(), Appodeal.REWARDED_VIDEO);
 
         callback.invoke(isShown);
+    }
+
+//    public void rewardedVideoChooseNetworks() {
+//        disableNetworks(Appodeal.REWARDED_VIDEO);
+//    }
+
+    @ReactMethod
+    public void rewardedVideoCache() {
+        Appodeal.cache(getCurrentActivity(), Appodeal.REWARDED_VIDEO);
     }
 
     private class AppodealRewardedVideoCallbacks implements RewardedVideoCallbacks {
