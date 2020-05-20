@@ -87,11 +87,11 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
 
-    implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    // implementation 'com.android.support:multidex:1.0.3'
+    // implementation 'com.android.support:recyclerview-v7:26.1.0'
 
     // Stack ConsentManager (required for requesting Consent from European Users)
-    implementation 'com.explorestack:consent:1.0.1'
+    // implementation 'com.explorestack:consent:1.0.1'
     implementation 'com.google.android.gms:play-services-ads-identifier:15.0.0'
 
     implementation 'com.appodeal.ads:sdk:2.6.3.0'
