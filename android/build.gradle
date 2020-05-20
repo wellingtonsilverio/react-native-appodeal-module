@@ -68,11 +68,20 @@ repositories {
     }
     google()
     jcenter()
+    maven {
+        url "https://artifactory.appodeal.com/appodeal"
+    }
 }
 
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
+
+    implementation 'com.appodeal.ads.sdk:core:2.6.3'
+    implementation 'com.appodeal.ads.sdk.networks:appodealx:2.6.0.1'
+    implementation 'com.appodeal.ads.sdk.networks:mraid:2.6.0.1'
+    implementation 'com.appodeal.ads.sdk.networks:nast:2.6.0.1'
+    implementation 'com.appodeal.ads.sdk.networks:vast:2.6.0.1'
 }
 
 def configureReactNativePom(def pom) {
