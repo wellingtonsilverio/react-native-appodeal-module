@@ -44,7 +44,7 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void isRewardedVideoLoaded(String APP_KEY) {
+    public void isRewardedVideoLoaded() {
         if (Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)) {
             Toast.makeText(getCurrentActivity(), "true", Toast.LENGTH_SHORT).show();
         } else {
