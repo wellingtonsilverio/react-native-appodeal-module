@@ -17,6 +17,7 @@ import com.appodeal.ads.UserSettings;
 public class AppodealModuleModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
+    private final boolean consent = false;
 
     public AppodealModuleModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -33,7 +34,7 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
         // Add user settings
         Appodeal.setUserAge(25);
         Appodeal.setUserGender(UserSettings.Gender.MALE);
-        Appodeal.initialize(getCurrentActivity(), APP_KEY, Appodeal.NONE, false);
+        Appodeal.initialize(getCurrentActivity(), APP_KEY, Appodeal.NONE, consent);
     }
 
     @ReactMethod
