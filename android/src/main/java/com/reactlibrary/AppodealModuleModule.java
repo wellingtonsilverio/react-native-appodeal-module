@@ -168,7 +168,7 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
 
             WritableMap map = Arguments.createMap();
 
-            map.putString("message", message);
+            map.putString("message", text);
 
             reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("log", map);
         }
