@@ -35,17 +35,30 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void setTesting(boolean testing) {
+        Appodeal.setTesting(testing);
+    }
+
+    public void setUserAge(int age) {
+        Appodeal.setUserAge(age);
+    }
+
+    public void setUserGender(String gender) {
+        if (gender == "female") {
+            Appodeal.setUserGender(UserSettings.Gender.FEMALE);
+        } else {
+            Appodeal.setUserGender(UserSettings.Gender.MALE);
+        }
+    }
+
+    @ReactMethod
     public void initialize(String APP_KEY) {
-        Appodeal.setTesting(true);
-        Appodeal.setLogLevel(Log.LogLevel.verbose);
-        // Add user settings
-        Appodeal.setUserAge(25);
-        Appodeal.setUserGender(UserSettings.Gender.MALE);
         Appodeal.initialize(getCurrentActivity(), APP_KEY, Appodeal.NONE, consent);
     }
 
     @ReactMethod
     public void initializeRewarded(String APP_KEY) {
+        Appodeal.setAutoCache(Appodeal.REWARDED_VIDEO, true);
         Appodeal.initialize(getCurrentActivity(), APP_KEY, Appodeal.REWARDED_VIDEO, consent);
         Appodeal.setRewardedVideoCallbacks(new AppodealRewardedVideoCallbacks(getCurrentActivity()));
     }
