@@ -7,6 +7,14 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 
+import com.facebook.react.modules.core.DeviceEventManagerModule;
+
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.Arguments;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.app.Activity;
 import android.widget.Toast;
 
@@ -23,6 +31,8 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
     private final boolean consent = false;
+
+    SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     public AppodealModuleModule(ReactApplicationContext reactContext) {
         super(reactContext);
