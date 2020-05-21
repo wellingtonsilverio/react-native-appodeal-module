@@ -64,11 +64,11 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void isRewardedVideoLoaded() {
+    public void isRewardedVideoLoaded(Callback callback) {
         if (Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)) {
-            Toast.makeText(getCurrentActivity(), "true", Toast.LENGTH_SHORT).show();
+            callback.invoke(true);
         } else {
-            Toast.makeText(getCurrentActivity(), "false", Toast.LENGTH_SHORT).show();
+            callback.invoke(false);
         }
     }
 
@@ -84,6 +84,19 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
         Appodeal.cache(getCurrentActivity(), Appodeal.REWARDED_VIDEO);
     }
 
+    public void emmitEvent(final String eventName, String... args) {
+        WritableMap map = Arguments.createMap();
+
+        map.putString("datetime", formatterDate.format(new Date()));
+
+        int i = 0;
+        for (String arg : args) {
+            map.putString(String.valueOf(i), arg);
+        }
+
+        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(eventName, map);
+    }
+
     private class AppodealRewardedVideoCallbacks implements RewardedVideoCallbacks {
         private final Activity activity;
 
@@ -94,42 +107,50 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
         @Override
         public void onRewardedVideoLoaded(boolean isPrecache) {
             showToast(activity, "onRewardedVideoLoaded, isPrecache: " + isPrecache);
+            emmitEvent("onRewardedVideoLoaded");
         }
 
         @Override
         public void onRewardedVideoFailedToLoad() {
             showToast(activity, "onRewardedVideoFailedToLoad");
+            emmitEvent("onRewardedVideoFailedToLoad");
         }
 
         @Override
         public void onRewardedVideoShown() {
             showToast(activity, "onRewardedVideoShown");
+            emmitEvent("onRewardedVideoShown");
         }
 
         @Override
         public void onRewardedVideoShowFailed() {
             showToast(activity, "onRewardedVideoShowFailed");
+            emmitEvent("onRewardedVideoShowFailed");
         }
 
         @Override
         public void onRewardedVideoClicked() {
             showToast(activity, "onRewardedVideoClicked");
+            emmitEvent("onRewardedVideoClicked");
         }
 
         @Override
         public void onRewardedVideoFinished(double amount, String name) {
             showToast(activity,
                     String.format(Locale.ENGLISH, "onRewardedVideoFinished. Reward: %.2f %s", amount, name));
+            emmitEvent("onRewardedVideoFinished", String.valueOf(amount), String.valueOf(name));
         }
 
         @Override
         public void onRewardedVideoClosed(boolean finished) {
             showToast(activity, String.format("onRewardedVideoClosed,  finished: %s", finished));
+            emmitEvent("onRewardedVideoClosed");
         }
 
         @Override
         public void onRewardedVideoExpired() {
             showToast(activity, "onRewardedVideoExpired");
+            emmitEvent("onRewardedVideoExpired");
         }
 
         void showToast(Activity activity, String text) {
