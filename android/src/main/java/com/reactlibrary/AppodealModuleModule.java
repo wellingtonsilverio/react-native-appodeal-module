@@ -164,7 +164,13 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
         }
 
         void showToast(Activity activity, String text) {
-            Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
+            // Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
+
+            WritableMap map = Arguments.createMap();
+
+            map.putString("message", message);
+
+            reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("log", map);
         }
     }
 }

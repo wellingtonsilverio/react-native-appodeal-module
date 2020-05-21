@@ -1,8 +1,8 @@
-import { NativeModules } from "react-native";
+import { NativeModules, NativeEventEmitter } from "react-native";
 
 const { AppodealModule } = NativeModules;
 
-const eventEmitter = new NativeEventEmitter(ChartboostModule);
+const eventEmitter = new NativeEventEmitter(AppodealModule);
 
 const _subscriptions = new Map();
 
