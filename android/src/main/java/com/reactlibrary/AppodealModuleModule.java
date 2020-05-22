@@ -49,6 +49,7 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
         Appodeal.setTesting(testing);
     }
 
+    @ReactMethod
     public void setUserAge(int age) {
         Appodeal.setUserAge(age);
     }
