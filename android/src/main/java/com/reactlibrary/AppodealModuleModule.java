@@ -154,7 +154,7 @@ public class AppodealModuleModule extends ReactContextBaseJavaModule {
         @Override
         public void onRewardedVideoClosed(boolean finished) {
             showToast(activity, String.format("onRewardedVideoClosed,  finished: %s", finished));
-            emmitEvent("onRewardedVideoClosed");
+            emmitEvent("onRewardedVideoClosed", String.valueOf(finished));
         }
 
         @Override
